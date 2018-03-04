@@ -48,16 +48,21 @@ Object.assign(FloatingBlockControls.prototype, require('./function-bind'), requi
     ev.preventDefault();
 
     var dropped_on = this.$el,
-    item_id = ev.originalEvent.dataTransfer.getData("text/plain"),
+    item_id = ev.originalEvent.dataTransfer.getData("Text"),
     block = $('#' + item_id);
 
-    if (!_.isUndefined(item_id) &&
-        !_.isEmpty(block) &&
-          dropped_on.attr('id') !== item_id &&
-            this.instance_id === block.attr('data-instance')
-       ) {
-         dropped_on.after(block);
-       }
+    if (!_.isUndefined(item_id) && !_.isEmpty(block) && dropped_on.attr('id') !== item_id && this.instance_id === block.attr('data-instance')
+    ) {
+       dropped_on.after(block);
+    }
+    // 20151107: enable drag&drop between instances
+    else if (
+      !_.isUndefined(item_id) && !_.isEmpty(block) && dropped_on.attr('id') !== item_id
+    ) {
+      if (typeof SirTrevor !== 'undefined') {
+        window.SirTrevor.dragBlockFromInstanceToInstance(block, dropped_on);
+      }
+    }
 
        EventBus.trigger("block:reorder:dropped", item_id);
   },

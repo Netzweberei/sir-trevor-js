@@ -230,7 +230,11 @@ Object.assign(Block.prototype, SimpleBlock.fn, require('./block-validations'), {
   _onBlur: function() {},
 
   onBlockRender: function() {
-    this.focus();
+    //this.focus();
+    /* Remind the user to save his changes */
+    this.getTextBlock().bind('DOMSubtreeModified', function(){
+      $(".st-submit input[type=submit]").css("background-color","#990000");
+    });
   },
 
   onDrop: function(dataTransferObj) {},

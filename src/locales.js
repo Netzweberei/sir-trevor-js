@@ -53,6 +53,11 @@ var Locales = {
       },
       heading: {
         'title': "Heading"
+      },
+      widget: {
+        'title': "Herbie Widget",
+        'upload_error': "There was a problem with your upload",
+        'fetch_error': "There was a problem fetching the widgets"
       }
     }
   }

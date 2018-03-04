@@ -31,7 +31,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
 
   bound: ['onFormSubmit', 'hideAllTheThings', 'changeBlockPosition',
     'removeBlockDragOver', 'renderBlock', 'resetBlockControls',
-    'blockLimitReached'], 
+    'blockLimitReached'],
 
   events: {
     'block:reorder:dragend': 'removeBlockDragOver',
@@ -172,7 +172,7 @@ Object.assign(Editor.prototype, require('./function-bind'), require('./events'),
   renderBlock: function(block) {
     this._renderInPosition(block.render().$el);
     this.hideAllTheThings();
-    this.scrollTo(block.$el);
+    //this.scrollTo(block.$el);
 
     block.trigger("onRender");
   },

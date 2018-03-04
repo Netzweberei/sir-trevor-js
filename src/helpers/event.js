@@ -14,7 +14,7 @@ function dragEnter(e) {
 }
 
 function dragOver(e) {
-  e.originalEvent.dataTransfer.dropEffect = "copy";
+  e.originalEvent.dataTransfer.dropEffect = "copyMove";
   $(e.currentTarget).addClass('st-drag-over');
   e.preventDefault();
 }

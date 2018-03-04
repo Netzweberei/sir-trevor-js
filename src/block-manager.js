@@ -51,6 +51,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     this.mediator.trigger('block:limitReached', this.blockLimitReached());
 
     utils.log("Block created of type " + type);
+    return block;
   },
 
   removeBlock: function(blockID) {
@@ -67,6 +68,7 @@ Object.assign(BlockManager.prototype, require('./function-bind'), require('./med
     this.mediator.trigger('block:limitReached', this.blockLimitReached());
 
     EventBus.trigger("block:remove");
+    return block;
   },
 
   rerenderBlock: function(blockID) {

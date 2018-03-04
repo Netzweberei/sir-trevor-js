@@ -53,15 +53,23 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
     ev.preventDefault();
 
     var dropped_on = this.$block,
-    item_id = ev.originalEvent.dataTransfer.getData("text/plain"),
+    item_id = ev.originalEvent.dataTransfer.getData("Text"),
     block = $('#' + item_id);
 
-    if (!_.isUndefined(item_id) && !_.isEmpty(block) &&
-        dropped_on.attr('id') !== item_id &&
-          dropped_on.attr('data-instance') === block.attr('data-instance')
-       ) {
+    if (
+      !_.isUndefined(item_id) && !_.isEmpty(block) && dropped_on.attr('id') !== item_id && dropped_on.attr('data-instance') === block.attr('data-instance')
+    ) {
        dropped_on.after(block);
      }
+    // 20151107: enable drag&drop between instances
+    else if (
+      !_.isUndefined(item_id) && !_.isEmpty(block) && dropped_on.attr('id') !== item_id
+    ) {
+      if (typeof SirTrevor !== 'undefined') {
+        window.SirTrevor.dragBlockFromInstanceToInstance(block, dropped_on);
+      }
+
+    }
      this.mediator.trigger("block:rerender", item_id);
      EventBus.trigger("block:reorder:dropped", item_id);
   },
@@ -71,6 +79,7 @@ Object.assign(BlockReorder.prototype, require('./function-bind'), require('./ren
 
     ev.originalEvent.dataTransfer.setDragImage(this.$block[0], btn.position().left, btn.position().top);
     ev.originalEvent.dataTransfer.setData('Text', this.blockId());
+    ev.originalEvent.dataTransfer.effectAllowed = 'copyMove';
 
     EventBus.trigger("block:reorder:dragstart");
     this.$block.addClass('st-block--dragging');
